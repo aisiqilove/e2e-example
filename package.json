@@ -8,7 +8,9 @@
     "e2e:report": "playwright show-report",
     "test:development": "cross-env TEST_MODE=development playwright test",
     "test:test": "cross-env TEST_MODE=test playwright test",
-    "test:production": "cross-env TEST_MODE=production playwright test"
+    "test:production": "cross-env TEST_MODE=production playwright test",
+    "e2e:ci": "cross-env CI=1 CI_WORKERS=1 yarn e2e:ci:run",
+    "e2e:ci:run": "playwright test"
   },
   "keywords": [],
   "author": "",

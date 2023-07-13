@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
+import type { ReporterDescription } from '@playwright/test';
+import path from 'path';
 
 /**
  * Read environment variables from file.
@@ -15,6 +17,13 @@ dotenv.config({ path: '.env' });
 dotenv.config({ path: `.env.${modeExt}`, override: true });
 dotenv.config({ path: '.env.local', override: true });
 dotenv.config({ path: `.env.${modeExt}.local`, override: true });
+
+const ciReporters: ReporterDescription[] = [
+  [path.resolve(__dirname, 'ci-log-report.ts')],
+  ['html', { open: 'never' }],
+  ['json', { outputFile: 'playwright-report/results.json' }],
+  ['line'],
+];
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -35,14 +44,22 @@ export default defineConfig({
   outputDir: 'test-results',
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   // 指定测试结果如何输出
-  reporter: [
-    // 在命令行中同步打印每条用例的执行结果
-    ['list'],
-    // 输出 html 格式的报告，并将报告归档与指定路径
-    ['html', {
-      outputFolder: 'playwright-report',
-    }]
-  ],
+  // reporter: [
+  //   // 在命令行中同步打印每条用例的执行结果
+  //   ['list'],
+  //   // 输出 html 格式的报告，并将报告归档与指定路径
+  //   ['html', {
+  //     outputFolder: 'playwright-report',
+  //   }]
+  // ],
+  reporter: process.env.CI ? ciReporters :  [
+      // 在命令行中同步打印每条用例的执行结果
+      ['list'],
+      // 输出 html 格式的报告，并将报告归档与指定路径
+      ['html', {
+        outputFolder: 'playwright-report',
+      }]
+    ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   // 测试 project 的公共配置，会与与下面 projects 字段中的每个对象的 use 对象合并。
 

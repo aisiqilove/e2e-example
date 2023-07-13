@@ -5,20 +5,25 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
-    timeout-minutes: 60
+  playwright:
+    name: 'Playwright Tests'
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.36.0-jammy
+    timeout-minutes: 60
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: 18
     - name: Install dependencies
-      run: pnpm install
-    - name: Install Playwright Browsers
-      run: pnpm exec playwright install --with-deps
+      run: npm i
     - name: Run Playwright tests
-      run: pnpm exec playwright test
+      run: npm e2e:ci
+    # - name: Install Playwright Browsers
+    #   run: npx playwright install --with-deps
+    # - name: Run Playwright tests
+    #   run: npx playwright test
     - uses: actions/upload-artifact@v3
       if: always()
       with:
