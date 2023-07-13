@@ -6,6 +6,7 @@
 
 ## 文件目录
 
+```
 e2e-auto
  ┣  node_modules
  ┣  tests
@@ -16,6 +17,7 @@ e2e-auto
  ┣  package.json
  ┣  playwright.config.ts
  ┗  pnpm-lock.yaml
+```
 
 ## 解决 playwright.config.ts 报错问题
 

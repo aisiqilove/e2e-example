@@ -1,18 +1,19 @@
 /* eslint-disable no-console */
-// import fs from 'fs';
-// import os from 'os';
-// import path from 'path';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+import {minimatch} from 'minimatch';
+import { fileURLToPath } from 'url'
 
+const __filenameNew = fileURLToPath(import.meta.url)
+
+const __dirnameNew = path.dirname(__filenameNew)
 // import axios from 'axios';
 import type { JSONReport, JSONReportSuite } from '@playwright/test/reporter';
+// @ts-ignore
+import { getMiniReportTitle, getModuleMatches, getModuleSource } from './ci-module-map.ts';
 
-import { getMiniReportTitle, getModuleMatches, getModuleSource } from './ci-module-map';
-const fs = require('fs')
-const os = require('os')
-const path = require('path')
-const {minimatch} = require('minimatch')
-
-const reportDir = path.resolve(__dirname, '../playwright-report');
+const reportDir = path.resolve(__dirnameNew, '../playwright-report');
 const resultJsonFile = path.resolve(reportDir, 'results.json');
 const miniTestExportJsonFile = path.resolve(reportDir, 'mini_test_report.json');
 const resultExportFile = path.resolve(reportDir, 'results-export.sh');
