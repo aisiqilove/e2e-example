@@ -2,7 +2,11 @@ import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import type { ReporterDescription } from '@playwright/test';
 import path from 'path';
+import { fileURLToPath } from 'url'
 
+const __filenameNew = fileURLToPath(import.meta.url)
+
+const __dirnameNew = path.dirname(__filenameNew)
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -19,7 +23,7 @@ dotenv.config({ path: '.env.local', override: true });
 dotenv.config({ path: `.env.${modeExt}.local`, override: true });
 
 const ciReporters: ReporterDescription[] = [
-  [path.resolve(__dirname, 'ci/ci-log-report.ts')],
+  [path.resolve(__dirnameNew, 'ci/ci-log-report.ts')],
   ['html', { open: 'never' }],
   ['json', { outputFile: 'playwright-report/results.json' }],
   ['line'],
