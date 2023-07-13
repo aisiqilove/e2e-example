@@ -19,7 +19,7 @@ dotenv.config({ path: '.env.local', override: true });
 dotenv.config({ path: `.env.${modeExt}.local`, override: true });
 
 const ciReporters: ReporterDescription[] = [
-  [path.resolve(__dirname, 'ci-log-report.ts')],
+  [path.resolve(__dirname, 'ci/ci-log-report.ts')],
   ['html', { open: 'never' }],
   ['json', { outputFile: 'playwright-report/results.json' }],
   ['line'],

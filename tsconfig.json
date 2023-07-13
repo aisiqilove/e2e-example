@@ -17,5 +17,5 @@
       "isolatedModules": true,
       "types": ["node"]
     },
-    "include": ["playwright.config.ts", "tests"],
+    "include": ["playwright.config.ts", "tests", "ci"],
   }
